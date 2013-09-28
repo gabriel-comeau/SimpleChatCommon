@@ -3,7 +3,7 @@ package SimpleChatCommon
 import (
 	"fmt"
 	"github.com/nsf/termbox-go"
-	"github.com/gabriel-comeau/termbox-uikit"
+	"github.com/gabriel-comeau/tbuikit"
 	"strings"
 )
 
@@ -11,7 +11,7 @@ import (
 const MESSAGE_TOKEN string = "|%|"
 
 // Converts a colorized string object to a string
-func Pack(colorizedString *termbox-uikit.ColorizedString) string {
+func Pack(colorizedString *tbuikit.ColorizedString) string {
 	colors := new(ColorList)
 	colStr := colors.fromColor(colorizedString.Color)
 
@@ -19,8 +19,8 @@ func Pack(colorizedString *termbox-uikit.ColorizedString) string {
 }
 
 // Converts a string to a ColorizedString object
-func Unpack(raw string) *termbox-uikit.ColorizedString {
-	cs := new(termbox-uikit.ColorizedString)
+func Unpack(raw string) *tbuikit.ColorizedString {
+	cs := new(tbuikit.ColorizedString)
 	trimmed := strings.Trim(raw, " \n")
 	parts := strings.Split(trimmed, MESSAGE_TOKEN)
 
@@ -40,8 +40,8 @@ func Unpack(raw string) *termbox-uikit.ColorizedString {
 }
 
 // Creates a new colorized string object, from a body string and color string
-func Create(text, color string) *termbox-uikit.ColorizedString {
-	cs := new(termbox-uikit.ColorizedString)
+func Create(text, color string) *tbuikit.ColorizedString {
+	cs := new(tbuikit.ColorizedString)
 	cs.Text = text
 
 	cs.Color = termbox.ColorWhite
@@ -55,8 +55,8 @@ func Create(text, color string) *termbox-uikit.ColorizedString {
 // For convenience, takes a slice of strings and a single color and then
 // converts them to slice of message objects.  Obviously, they'll all have
 // the same color but in many cases this is desirable.
-func ColStringSliceFromStringSlice(texts []string, color string) []*termbox-uikit.ColorizedString {
-	cstrings := make([]*termbox-uikit.ColorizedString, 0)
+func ColStringSliceFromStringSlice(texts []string, color string) []*tbuikit.ColorizedString {
+	cstrings := make([]*tbuikit.ColorizedString, 0)
 	for _, t := range texts {
 		cstrings = append(cstrings, Create(t, color))
 	}
