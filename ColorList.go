@@ -54,7 +54,7 @@ func (this *ColorList) Get(color string) termbox.Attribute {
 	return attr
 }
 
-func (this *ColorList) fromColor(col termbox.Attribute) string {
+func (this *ColorList) FromColor(col termbox.Attribute) string {
 	if !this.isInited {
 		this.setColors()
 	}

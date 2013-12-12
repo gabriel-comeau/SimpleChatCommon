@@ -2,18 +2,23 @@ package SimpleChatCommon
 
 import (
 	"fmt"
-	"github.com/nsf/termbox-go"
 	"github.com/gabriel-comeau/tbuikit"
+	"github.com/nsf/termbox-go"
+	"regexp"
 	"strings"
 )
 
 // Separator string to split the message up
 const MESSAGE_TOKEN string = "|%|"
 
+//
+const WHO_MESSAGE_TOKEN string = "|%WHO%|"
+const WHO_MESSAGE_REGEX_STR string = `^\|%WHO%\|`
+
 // Converts a colorized string object to a string
 func Pack(colorizedString *tbuikit.ColorizedString) string {
 	colors := new(ColorList)
-	colStr := colors.fromColor(colorizedString.Color)
+	colStr := colors.FromColor(colorizedString.Color)
 
 	return fmt.Sprintf("%v%v%v\n", colorizedString.Text, MESSAGE_TOKEN, colStr)
 }
@@ -37,6 +42,16 @@ func Unpack(raw string) *tbuikit.ColorizedString {
 	}
 
 	return cs
+}
+
+// Check if this message from the server is a "who" message
+func IsWhoMessage(colorizedString *tbuikit.ColorizedString) bool {
+	whoMsgRegex := regexp.MustCompile(WHO_MESSAGE_REGEX_STR)
+	if whoMsgRegex.MatchString(colorizedString.Text) {
+		return false
+	} else {
+		return false
+	}
 }
 
 // Creates a new colorized string object, from a body string and color string
